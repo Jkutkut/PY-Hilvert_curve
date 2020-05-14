@@ -18,7 +18,7 @@ sudo apt install python3 &&
 echo "-Checking pip3:" &&
 sudo apt install python3-pip &&
 echo "-Checking pygame:" &&
-sudo pip3 install pygame &&
+sudo pip3 install pygame ||
 (echo "
 ~~~~~~~~    ERROR AT INSTALLATION   ~~~~~~~~
     Please check README.md
