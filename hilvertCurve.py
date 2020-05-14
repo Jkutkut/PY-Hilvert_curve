@@ -4,12 +4,12 @@ import time # to set a delay between each iteration
 
 # -------------     FUNCTIONS      -------------
 def indexToCoord(p): 
-    return (int((p[0] + 0.5) * sizeWidth + marginFrame), int((p[1] + 0.5) * sizeWidth + marginFrame))
+    return ((p[0] + 0.5) * sizeWidth + marginFrame, (p[1] + 0.5) * sizeWidth + marginFrame)
 
 def hilvert(i):
     vec = [[0, 0], [0, 1], [1, 1], [1, 0]]
     index = i & 3
-    v = vec[index]
+    v = [vec[index][0], vec[index][1]]
     for l in range(1, level, 1):
         i = i >> 2
         index = i & 3
@@ -18,16 +18,12 @@ def hilvert(i):
             temp = v[0]
             v[0] = v[1]
             v[1] = temp
-        if index == 1:
-            v[1] = v[1] + len
-        elif index == 2:
-            v[0] = v[0] + len
-            v[1] = v[1] + len
         elif index == 3:
             temp = len - 1 - v[0]
             v[0] = len - 1 - v[1]
             v[1] = temp
-            v[0] = v[0] + len
+        v[0] = v[0] + len * vec[index][0]
+        v[1] = v[1] + len * vec[index][1]
     return v
 
 
@@ -50,7 +46,7 @@ while running:
     level = level + 1
     screen.fill((25, 25, 25)) # Clean screen
     N = pow(2, level)
-    sizeWidth = width / N
+    sizeWidth = int(width / N)
     path = [hilvert(i) for i in range(N * N)]
     p = 0
     gameRunning = True
